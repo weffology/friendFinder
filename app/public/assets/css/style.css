@@ -1,0 +1,19 @@
+body {
+    padding:20px;
+}
+
+.jumbotron {
+    text-align: left;
+    padding: 30px;
+    padding-left: 50px;
+
+}
+
+div {
+    width: 90%;
+    margin: auto;
+}
+
+.bottom {
+    text-align: left;
+}
