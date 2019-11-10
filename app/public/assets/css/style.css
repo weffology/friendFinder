@@ -1,5 +1,5 @@
 body {
-    padding:20px;
+    padding:20px 100px 20px 100px;
 }
 
 .jumbotron {
@@ -9,10 +9,10 @@ body {
 
 }
 
-div {
+/* div {
     width: 90%;
     margin: auto;
-}
+} */
 
 .bottom {
     text-align: left;
