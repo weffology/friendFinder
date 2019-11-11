@@ -226,10 +226,12 @@
                 (!isNaN(newFriend.scores[7])) &&
                 (!isNaN(newFriend.scores[8])) &&
                 (!isNaN(newFriend.scores[9]))) {
+
                 console.log(newFriend);
-                $.post("/api/friends", newFriend, function(data) {
-                    //get match data back and push into modal
-                });
+                alert("Thank you for filling out the Friend Match survey!")
+                // $.post("/api/friends", newFriend, function(data) {
+                // get match data back and push into modal
+                // });
             } else {
                 alert("You must fill out all fields to get your friend match!");
             }
