@@ -12,18 +12,12 @@
     <!--STYLE-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-    <!-- ICON LIBRARY -->
-    <script src="https://kit.fontawesome.com/d5fa5f8504.js" crossorigin="anonymous"></script>
-
     <!--BOOTSTRAP-->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!--JQUERY-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <!--JAVASCRIPT-->
-    <script type-="text/javascript" src="assets/javascript/app.js"></script>
 
 </head>
 
@@ -34,7 +28,7 @@
         <hr>
         <h4>About You</h4>
         <hr>
-        <form>
+        <form id="friendMatch">
             <div class="form-group">
                 <label for="userName">Name (Required)</label>
                 <input type="text" class="form-control" id="userName">
@@ -58,7 +52,8 @@
             </div>
             <div class="form-group">
                 <h4>Question 2</h4>
-                <label for="question2">Generally speaking, you rely more on your experience than your imagination.</label>
+                <label for="question2">Generally speaking, you rely more on your experience than your
+                    imagination.</label>
                 <select class="form-control" id="question2">
                     <option>Select an Option</option>
                     <option>1 (Strongly Disagree)</option>
@@ -70,7 +65,8 @@
             </div>
             <div class="form-group">
                 <h4>Question 3</h4>
-                <label for="question3">You find it easy to stay relaxed and focused even when there is some pressure.</label>
+                <label for="question3">You find it easy to stay relaxed and focused even when there is some
+                    pressure.</label>
                 <select class="form-control" id="question3">
                     <option>Select an Option</option>
                     <option>1 (Strongly Disagree)</option>
@@ -118,7 +114,8 @@
             </div>
             <div class="form-group">
                 <h4>Question 7</h4>
-                <label for="question7">In a discussion, truth should be more important than people’s sensitivities.</label>
+                <label for="question7">In a discussion, truth should be more important than people’s
+                    sensitivities.</label>
                 <select class="form-control" id="question7">
                     <option>Select an Option</option>
                     <option>1 (Strongly Disagree)</option>
@@ -142,7 +139,8 @@
             </div>
             <div class="form-group">
                 <h4>Question 9</h4>
-                <label for="question9">You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</label>
+                <label for="question9">You think that everyone’s views should be respected regardless of whether they
+                    are supported by facts or not.</label>
                 <select class="form-control" id="question9">
                     <option>Select an Option</option>
                     <option>1 (Strongly Disagree)</option>
@@ -166,14 +164,78 @@
             </div>
         </form>
 
+        <!-- MODAL -->
+        <div class="modal fade" id="matchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- SUBMIT BUTTON -->
-        <button type="submit" class="btn btn-primary btn-block" >Submit</button>
+        <button type="submit" class="btn btn-primary btn-block" id="submitBtn" data-toggle="modal" data-target="#matchModal">Submit</button>
         <hr>
     </div>
 
     <div>
         <a href="/api/friends">API Friends Link</a> | <a href="#">GitHub Repo</a>
     </div>
+
+    <script type="text/javascript">
+        $("#submitBtn").click(function () {
+            event.preventDefault();
+            var newFriend = {
+                name: $("#userName").val().trim(),
+                photo: $("#userPhoto").val().trim(),
+                scores: [
+                    $("#question1").val(),
+                    $("#question2").val(),
+                    $("#question3").val(),
+                    $("#question4").val(),
+                    $("#question5").val(),
+                    $("#question6").val(),
+                    $("#question7").val(),
+                    $("#question8").val(),
+                    $("#question9").val(),
+                    $("#question10").val()
+                ]
+            };
+            if ((newFriend.name !== "") &&
+                (newFriend.photo !== "") &&
+                (!isNaN(newFriend.scores[0])) &&
+                (!isNaN(newFriend.scores[1])) &&
+                (!isNaN(newFriend.scores[2])) &&
+                (!isNaN(newFriend.scores[3])) &&
+                (!isNaN(newFriend.scores[4])) &&
+                (!isNaN(newFriend.scores[5])) &&
+                (!isNaN(newFriend.scores[6])) &&
+                (!isNaN(newFriend.scores[7])) &&
+                (!isNaN(newFriend.scores[8])) &&
+                (!isNaN(newFriend.scores[9]))) {
+                console.log(newFriend);
+                $.post("/api/friends", newFriend, function(data) {
+                    //get match data back and push into modal
+                });
+            } else {
+                alert("You must fill out all fields to get your friend match!");
+            }
+            //trigger modal to pop up here with match data...
+        });
+    </script>
 
 </body>
 
